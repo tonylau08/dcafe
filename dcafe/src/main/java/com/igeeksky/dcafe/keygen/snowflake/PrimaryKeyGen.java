@@ -1,5 +1,6 @@
-package com.igeeksky.dcafe.keygen;
+package com.igeeksky.dcafe.keygen.snowflake;
 
+import java.util.Random;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 

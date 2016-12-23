@@ -1,4 +1,4 @@
-package com.igeeksky.dcafe.keygen;
+package com.igeeksky.dcafe.keygen.snowflake;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -11,9 +11,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 分布式时间发生器
- * 
  * @author Tony.Lau
- * @create 2016-12-23 09:51:37
  */
 public enum TimeGenerator {
 
@@ -21,16 +19,17 @@ public enum TimeGenerator {
 
 	private Logger logger = LoggerFactory.getLogger(TimeGenerator.class);
 
-	private volatile AbstractRMConfig config;
-	private volatile long lastTimeMills;
-	private volatile boolean isFail = true;
-	private volatile int rmid = -1;
+	private AbstractRMConfig config;
+	private long lastTimeMills;
+	private boolean isFail = true;
+	private int rmid = -1;
 
 	private final Lock rmidLock = new ReentrantLock();
 
 	private ScheduledExecutorService es = Executors.newScheduledThreadPool(1);
-	private volatile boolean isRun = false;
+	private boolean isRun = false;
 
+	/** 获取缓存时间 */
 	long getTime() {
 		try {
 			rmidLock.lock();
@@ -43,6 +42,7 @@ public enum TimeGenerator {
 		}
 	}
 
+	/** 获取最新时间 */
 	long updateTime() {
 		try {
 			rmidLock.lock();
@@ -59,6 +59,7 @@ public enum TimeGenerator {
 		}
 	}
 
+	/** 注册配置信息 */
 	public RegisterState registerRoomMachine(AbstractRMConfig config) {
 		try {
 			rmidLock.lock();
@@ -92,6 +93,7 @@ public enum TimeGenerator {
 		return RegisterState.OK;
 	}
 
+	/** 更新机房ID 和 机器ID */
 	private RegisterState updateRmid() {
 		logger.debug("updateRmid()");
 		int roomId = config.getRoomId();
@@ -148,7 +150,6 @@ public enum TimeGenerator {
 
 	/**
 	 * <b>时间定时更新器</b><br>
-	 * 
 	 * @create 2016-12-22 22:09:45
 	 */
 	private class TimeUpdater implements Runnable {
