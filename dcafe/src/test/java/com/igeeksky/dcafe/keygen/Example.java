@@ -9,7 +9,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.igeeksky.dcafe.keygen.TimeGenerator.RegisterState;
 
 /**
- * 
  * @author Tony.Lau
  * @create 2016-12-23 23:08:55
  */

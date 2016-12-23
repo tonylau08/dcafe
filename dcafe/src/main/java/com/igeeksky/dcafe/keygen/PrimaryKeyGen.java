@@ -8,7 +8,6 @@ import java.util.concurrent.locks.ReentrantLock;
  * 允许根据不同的表new多个实例，或者多表公用一个实例。
  * @author Tony.Lau
  * @create 2016-12-23 09:50:41
- * @update
  */
 public class PrimaryKeyGen {
 
