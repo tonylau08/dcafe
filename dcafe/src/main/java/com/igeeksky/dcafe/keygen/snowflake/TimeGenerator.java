@@ -21,7 +21,7 @@ public enum TimeGenerator {
 
 	private AbstractRMConfig config;
 	private long lastTimeMills;
-	private boolean isFail = true;
+	private volatile boolean isFail = true;
 	private int rmid = -1;
 
 	private final Lock rmidLock = new ReentrantLock();
@@ -61,17 +61,15 @@ public enum TimeGenerator {
 
 	/** 注册配置信息 */
 	public RegisterState registerRoomMachine(AbstractRMConfig config) {
+		isFail = true;
+		if (config == null) {
+			return RegisterState.ERROR;
+		}
+		if (config instanceof FailRMConfig) {
+			return RegisterState.FAIL;
+		}
 		try {
 			rmidLock.lock();
-			if (config == null) {
-				isFail = true;
-				return RegisterState.ERROR;
-			}
-			if (config instanceof FailRMConfig) {
-				isFail = true;
-				return RegisterState.FAIL;
-			}
-
 			this.config = config;
 			if (!updateRmid().equals(RegisterState.OK)) {
 				logger.error("registerRoomMachine error");
@@ -86,6 +84,7 @@ public enum TimeGenerator {
 				es.scheduleAtFixedRate(new TimeUpdater(), 0, timePeriod, TimeUnit.MILLISECONDS);
 				isRun = true;
 			}
+			isFail = false;
 		} finally {
 			rmidLock.unlock();
 		}
@@ -132,7 +131,6 @@ public enum TimeGenerator {
 
 		rmid = ((roomId << machineBitNum) ^ machineId) << 12;
 		lastTimeMills = (System.currentTimeMillis() << 23 >>> 1) ^ rmid;
-		isFail = false;
 		return RegisterState.OK;
 	}
 

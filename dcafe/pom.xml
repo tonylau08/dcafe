@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.igeeksky</groupId>
 	<artifactId>dcafe</artifactId>
-	<version>0.9.8</version>
+	<version>0.9.9</version>
 	<name>dcafe</name>
 	<description>Distributed Increment ID Builder</description>
 	<packaging>jar</packaging>
@@ -37,7 +37,7 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
@@ -46,7 +46,7 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 	
 	<build>
