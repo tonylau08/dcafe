@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * <b>分布式自增长主键发生器</b><br>
- * 允许根据不同的表new多个实例，或者多表公用一个实例。
+ * 枚举单例，只允许公用一个实例。
  * @author Tony.Lau
  * @create 2016-12-23 09:50:41
  */
