@@ -4,9 +4,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.igeeksky.dcafe.keygen.snowflake.AbstractRMConfig;
+import com.igeeksky.dcafe.keygen.snowflake.FailRMConfig;
 import com.igeeksky.dcafe.keygen.snowflake.PrimaryKeyGen;
 import com.igeeksky.dcafe.keygen.snowflake.TimeGenerator;
 import com.igeeksky.dcafe.keygen.snowflake.TimeGenerator.RegisterState;
@@ -15,6 +17,7 @@ import com.igeeksky.dcafe.keygen.snowflake.TimeGenerator.RegisterState;
  * 测试类
  * @author Tony.Lau
  * @create 2016-12-23 23:08:55
+ * @update 2016-12-26 20:13:24
  */
 public class TestGenerator{
 	
@@ -29,7 +32,7 @@ public class TestGenerator{
 		RegisterState state = TimeGenerator.INSTANCE.registerRoomMachine(config);
 	}
 	
-	private static PrimaryKeyGen keyGen = new PrimaryKeyGen();
+	private static PrimaryKeyGen keyGen = PrimaryKeyGen.INSTANCE;
 	
 	private static ConcurrentHashMap<Long, Integer> map = new ConcurrentHashMap<Long, Integer>(10000000);
 	
@@ -38,12 +41,15 @@ public class TestGenerator{
 	
 	static CountDownLatch latch = new CountDownLatch(2);
 	
+	private static volatile boolean isFail = false;
+	
 	public static void main(String[] args) {
 		
 		long t1 = System.currentTimeMillis();
 		ScheduledExecutorService es = Executors.newScheduledThreadPool(2);
 		
 		try {
+			new Thread(new FailTest()).start();
 			es.execute(new TestKeyGen());
 			es.execute(new TestKeyGen());
 			latch.await();
@@ -61,9 +67,9 @@ public class TestGenerator{
 		@Override
 		public void run() {
 			long Threadid = Thread.currentThread().getId();
-			for(int i=0; i < 4096000; i++){
+			for(int i=0; i < 409600; i++){
 				Long time = keyGen.getIncrKey();
-				/*if(time <= 0){
+				if(time <= 0){
 					errorNum.incrementAndGet();
 					continue;
 				}
@@ -75,11 +81,30 @@ public class TestGenerator{
 					System.out.println(map.get(time));
 					System.out.println(Long.toBinaryString(time));
 					repeat.incrementAndGet();
-				}*/
+				}
+				if(isFail){
+					TimeGenerator.INSTANCE.registerRoomMachine(new RoomMachineConfig(0, 1, 0, 1, 1000));
+					isFail = false;
+				}
 			}
 			latch.countDown();
 		}
 		
+	}
+	
+	private static class FailTest implements Runnable{
+		
+		@Override
+		public void run() {
+			try {
+				TimeUnit.MILLISECONDS.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			TimeGenerator.INSTANCE.registerRoomMachine(new FailRMConfig());
+			isFail = true;
+			run();
+		}
 	}
 	
 	private static class RoomMachineConfig extends AbstractRMConfig{

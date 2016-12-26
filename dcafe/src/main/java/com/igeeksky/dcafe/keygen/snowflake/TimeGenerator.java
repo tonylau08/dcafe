@@ -50,7 +50,7 @@ public enum TimeGenerator {
 				return -1l;
 			}
 			long temp = (System.currentTimeMillis() << 23 >>> 1) ^ rmid;
-			while (temp == lastTimeMills) {
+			while (temp <= lastTimeMills) {
 				temp = (System.currentTimeMillis() << 23 >>> 1) ^ rmid;
 			}
 			return lastTimeMills = temp;

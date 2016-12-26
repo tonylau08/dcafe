@@ -16,7 +16,7 @@ public class Example{
 		RegisterState state = TimeGenerator.INSTANCE.registerRoomMachine(config);
 	}
 	
-	private static PrimaryKeyGen keyGen = new PrimaryKeyGen();
+	private static PrimaryKeyGen keyGen = PrimaryKeyGen.INSTANCE;
 	
 	public long getKey(){
 		return keyGen.getIncrKey();

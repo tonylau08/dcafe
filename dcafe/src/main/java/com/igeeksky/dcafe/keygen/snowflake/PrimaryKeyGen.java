@@ -9,7 +9,9 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Tony.Lau
  * @create 2016-12-23 09:50:41
  */
-public class PrimaryKeyGen {
+public enum PrimaryKeyGen {
+	
+	INSTANCE;
 
 	private final Lock INCR_LOCK = new ReentrantLock();
 	private int increment = 0;
