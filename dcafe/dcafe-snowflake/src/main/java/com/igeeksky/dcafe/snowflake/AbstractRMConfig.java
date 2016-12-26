@@ -1,6 +1,6 @@
-package com.igeeksky.dcafe.keygen.snowflake;
+package com.igeeksky.dcafe.snowflake;
 
-import com.igeeksky.dcafe.keygen.snowflake.TimeGenerator.RegisterState;
+import com.igeeksky.dcafe.snowflake.TimeGenerator.RegisterState;
 
 /**
  * @author Tony.Lau

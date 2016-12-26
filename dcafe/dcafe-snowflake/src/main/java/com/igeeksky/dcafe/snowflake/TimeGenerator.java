@@ -1,4 +1,4 @@
-package com.igeeksky.dcafe.keygen.snowflake;
+package com.igeeksky.dcafe.snowflake;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
