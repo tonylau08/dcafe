@@ -1,12 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.igeeksky</groupId>
-		<artifactId>dcafe</artifactId>
-		<version>1.0.0</version>
-	</parent>
+	<groupId>com.igeeksky</groupId>
 	<artifactId>dcafe-test</artifactId>
 	<name>dcafe-test</name>
+	<version>1.0.0</version>
+	
+	<licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    
+	<developers>
+		<developer>
+			<name>Tony.Lau</name>
+			<email>coffeelifelau@163.com</email>
+			<url>https://my.oschina.net/xcafe</url>
+		</developer>
+	</developers>
 	
 	<dependencies>
 		<dependency>
@@ -15,7 +27,18 @@
 			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
-	
+
+	<properties>
+		<slf4j.version>1.7.21</slf4j.version>
+		<log4j.version>1.2.17</log4j.version>
+		<maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+		<compiler-source.version>1.8</compiler-source.version>
+		<compiler-target.version>1.8</compiler-target.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
 	<build>
 		<plugins>
 			<plugin>

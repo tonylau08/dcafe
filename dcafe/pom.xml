@@ -18,38 +18,9 @@
 		<developer>
 			<name>Tony.Lau</name>
 			<email>coffeelifelau@163.com</email>
-			<url>http://blog.csdn.net/coffeelifelau</url>
+			<url>https://my.oschina.net/xcafe</url>
 		</developer>
 	</developers>
-	
-	<properties>
-		<slf4j.version>1.7.21</slf4j.version>
-		<log4j.version>1.2.17</log4j.version>
-		<maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
-		<compiler-source.version>1.8</compiler-source.version>
-		<compiler-target.version>1.8</compiler-target.version>
-		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-	
-	<dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<!-- <dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
-		</dependency> -->
-	</dependencies>
 	
 	<modules>
 		<module>dcafe-snowflake</module>
