@@ -7,7 +7,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.igeeksky.dcafe.snowflake.TimeGenerator.RegisterState;
+import com.igeeksky.dcafe.snowflake.PrimaryKeyGen.RegisterState;
 
 /**
  * 测试类
@@ -22,10 +22,10 @@ public class TestGenerator{
 		//1. 读取配置，获取机房ID 和 机器ID
 		
 		//2. 构造RMHolder对象
-		RoomMachineConfig config = new RoomMachineConfig(0, 1, 0, 1, 1000);
+		RoomMachineConfig config = new RoomMachineConfig(0, 1, 0, 1);
 		
 		//3. 注册RMHolder对象并判断返回值
-		RegisterState state = TimeGenerator.INSTANCE.registerRoomMachine(config);
+		RegisterState state = PrimaryKeyGen.INSTANCE.registerRoomMachine(config);
 	}
 	
 	private static PrimaryKeyGen keyGen = PrimaryKeyGen.INSTANCE;
@@ -97,7 +97,7 @@ public class TestGenerator{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			TimeGenerator.INSTANCE.registerRoomMachine(new FailRMConfig());
+			PrimaryKeyGen.INSTANCE.registerRoomMachine(new FailRMConfig());
 			isFail = true;
 			run();
 		}
@@ -114,8 +114,8 @@ public class TestGenerator{
 			*/
 		}
 		
-		public RoomMachineConfig(int roomId, int roomBitNum, int machineId, int machineBitNum, int timeUpdatePeriod) {
-			super(roomId, roomBitNum, machineId, machineBitNum, timeUpdatePeriod);
+		public RoomMachineConfig(int roomId, int roomBitNum, int machineId, int machineBitNum) {
+			super(roomId, roomBitNum, machineId, machineBitNum);
 			/*
 			if(config.change()){
 				refresh();
@@ -130,7 +130,7 @@ public class TestGenerator{
 			//this.roomBitNum = 
 			//this.machineId = 
 			//this.machineBitNum = 
-			return TimeGenerator.INSTANCE.registerRoomMachine(this);
+			return PrimaryKeyGen.INSTANCE.registerRoomMachine(this);
 		}
 		
 		@Override
@@ -140,7 +140,7 @@ public class TestGenerator{
 			//this.roomBitNum = 
 			//this.machineId = 
 			//this.machineBitNum = 
-			return TimeGenerator.INSTANCE.registerRoomMachine(this);
+			return PrimaryKeyGen.INSTANCE.registerRoomMachine(this);
 		}
 
 		@Override

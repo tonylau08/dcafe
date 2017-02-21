@@ -1,6 +1,6 @@
 package com.igeeksky.dcafe.snowflake;
 
-import com.igeeksky.dcafe.snowflake.TimeGenerator.RegisterState;
+import com.igeeksky.dcafe.snowflake.PrimaryKeyGen.RegisterState;
 
 /**
  * 使用示例
@@ -9,8 +9,8 @@ import com.igeeksky.dcafe.snowflake.TimeGenerator.RegisterState;
 public class Example{
 	
 	static {
-		RoomMachineConfig config = new RoomMachineConfig(0, 1, 0, 1, 1000);
-		RegisterState state = TimeGenerator.INSTANCE.registerRoomMachine(config);
+		RoomMachineConfig config = new RoomMachineConfig(0, 1, 0, 1);
+		RegisterState state = PrimaryKeyGen.INSTANCE.registerRoomMachine(config);
 	}
 	
 	private static PrimaryKeyGen keyGen = PrimaryKeyGen.INSTANCE;
@@ -30,8 +30,8 @@ public class Example{
 			*/
 		}
 		
-		public RoomMachineConfig(int roomId, int roomBitNum, int machineId, int machineBitNum, int timeUpdatePeriod) {
-			super(roomId, roomBitNum, machineId, machineBitNum, timeUpdatePeriod);
+		public RoomMachineConfig(int roomId, int roomBitNum, int machineId, int machineBitNum) {
+			super(roomId, roomBitNum, machineId, machineBitNum);
 			/*
 			if(config.change()){
 				refresh();
@@ -46,7 +46,7 @@ public class Example{
 			//this.roomBitNum = 
 			//this.machineId = 
 			//this.machineBitNum = 
-			return TimeGenerator.INSTANCE.registerRoomMachine(this);
+			return PrimaryKeyGen.INSTANCE.registerRoomMachine(this);
 		}
 		
 		@Override
@@ -56,7 +56,7 @@ public class Example{
 			//this.roomBitNum = 
 			//this.machineId = 
 			//this.machineBitNum = 
-			return TimeGenerator.INSTANCE.registerRoomMachine(this);
+			return PrimaryKeyGen.INSTANCE.registerRoomMachine(this);
 		}
 
 		@Override

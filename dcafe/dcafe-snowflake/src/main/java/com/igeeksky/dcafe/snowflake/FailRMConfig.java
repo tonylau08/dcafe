@@ -1,6 +1,6 @@
 package com.igeeksky.dcafe.snowflake;
 
-import com.igeeksky.dcafe.snowflake.TimeGenerator.RegisterState;
+import com.igeeksky.dcafe.snowflake.PrimaryKeyGen.RegisterState;
 
 public final class FailRMConfig extends AbstractRMConfig {
 	

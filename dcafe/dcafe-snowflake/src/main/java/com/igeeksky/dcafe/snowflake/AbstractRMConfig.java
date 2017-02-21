@@ -1,6 +1,6 @@
 package com.igeeksky.dcafe.snowflake;
 
-import com.igeeksky.dcafe.snowflake.TimeGenerator.RegisterState;
+import com.igeeksky.dcafe.snowflake.PrimaryKeyGen.RegisterState;
 
 /**
  * @author Tony.Lau
@@ -10,12 +10,11 @@ public abstract class AbstractRMConfig {
 	
 	public AbstractRMConfig(){}
 	
-	public AbstractRMConfig(int roomId, int roomBitNum, int machineId, int machineBitNum, int timeUpdatePeriod){
+	public AbstractRMConfig(int roomId, int roomBitNum, int machineId, int machineBitNum){
 		this.roomId = roomId;
 		this.roomBitNum = roomBitNum;
 		this.machineId = machineId;
 		this.machineBitNum = machineBitNum;
-		this.timeUpdatePeriod = timeUpdatePeriod;
 	}
 	
 	protected int roomId = -1;
@@ -30,7 +29,7 @@ public abstract class AbstractRMConfig {
 	
 	/** 配置失效时停止产生主键 */
 	protected RegisterState fail(){
-		return TimeGenerator.INSTANCE.registerRoomMachine(new FailRMConfig());
+		return PrimaryKeyGen.INSTANCE.registerRoomMachine(new FailRMConfig());
 	}
 	
 	/** 初始化配置 */

@@ -4,7 +4,7 @@
 	<artifactId>dcafe-snowflake</artifactId>
 	<name>dcafe-snowflake</name>
 	<description>distributed key generator</description>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	
 	<licenses>
         <license>
