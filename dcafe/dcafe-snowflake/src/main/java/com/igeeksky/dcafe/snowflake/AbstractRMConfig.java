@@ -1,6 +1,6 @@
 package com.igeeksky.dcafe.snowflake;
 
-import com.igeeksky.dcafe.snowflake.PrimaryKeyGen.RegisterState;
+import com.igeeksky.dcafe.snowflake.RoomMachineRegister.RegisterState;
 
 /**
  * @author Tony.Lau
@@ -29,7 +29,7 @@ public abstract class AbstractRMConfig {
 	
 	/** 配置失效时停止产生主键 */
 	protected RegisterState fail(){
-		return PrimaryKeyGen.INSTANCE.registerRoomMachine(new FailRMConfig());
+		return RoomMachineRegister.INSTANCE.registerRoomMachine(new FailRMConfig());
 	}
 	
 	/** 初始化配置 */

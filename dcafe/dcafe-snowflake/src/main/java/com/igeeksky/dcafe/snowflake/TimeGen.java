@@ -20,7 +20,9 @@ public enum TimeGen {
 	
 	private int period = 1000;
 	
-	private static long currTime = System.currentTimeMillis();
+	private static long currMills = System.currentTimeMillis();
+	
+	private static long currSecond = currMills / 1000;
 	
 	private static final ReentrantLock TIME_LOCK = new ReentrantLock();
 	
@@ -28,20 +30,25 @@ public enum TimeGen {
 		es.scheduleAtFixedRate(updater, 0, period, TimeUnit.MILLISECONDS);
 	}
 	
-	public long currTime(){
-		return currTime; 
+	public long currMills(){
+		return currMills; 
 	}
 	
-	long nextTime(long lastTime){
+	public long currSecond(){
+		return currSecond;
+	}
+	
+	long nextMills(long lastTime){
 		try{
 			TIME_LOCK.lock();
-			if(currTime > lastTime){
-				return currTime;
+			if(currMills > lastTime){
+				return currMills;
 			}
-			while(currTime <= lastTime){
-				currTime = System.currentTimeMillis();
+			while(currMills <= lastTime){
+				currMills = System.currentTimeMillis();
 			}
-			return currTime;
+			currSecond = currMills / 1000;
+			return currMills;
 		} finally{
 			TIME_LOCK.unlock();
 		}
@@ -52,7 +59,7 @@ public enum TimeGen {
 		@Override
 		public void run() {
 			try {
-				nextTime(System.currentTimeMillis()-1);
+				nextMills(System.currentTimeMillis()-1);
 			} catch (Exception e) {
 				logger.error("TimeUpdater is error", e);
 			}
